@@ -1,131 +1,111 @@
-TFT Metagame Analytics Pipeline 📊
+# TFT Metagame Analytics Pipeline 
 
-A distributed Big Data pipeline for real-time Teamfight Tactics (TFT) meta analysis, implementing a Lambda Architecture with Kafka, HDFS, Spark, and MongoDB.
+> **Distributed Big Data Architecture for Real-Time Competitive Gaming Strategy**
 
-📖 Overview
+![Status](https://img.shields.io/badge/Status-Active-success?style=for-the-badge)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![Apache Kafka](https://img.shields.io/badge/Apache%20Kafka-000?style=for-the-badge&logo=apachekafka&logoColor=white)
+![Apache Spark](https://img.shields.io/badge/Apache%20Spark-E25A1C?style=for-the-badge&logo=apachespark&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
 
-In the stochastic environment of Teamfight Tactics, the "Meta" shifts rapidly with every patch. This project automates the discovery of optimal strategies by ingesting high-velocity match telemetry from the Riot Games API, processing it through a distributed cluster, and serving actionable insights via a web dashboard.
+##  Overview
 
-Key Features:
+The **TFT Metagame Analytics Pipeline** is an end-to-end Big Data system designed to solve the stochastic optimization problem of *Teamfight Tactics* (TFT). By ingesting high-velocity match telemetry from the Riot Games API, this system utilizes a distributed Lambda Architecture to calculate statistically optimal unit compositions ("The Meta") and localized synergy deltas.
 
-High-Velocity Ingestion: Multi-key rotation system to bypass API rate limits.
+Unlike static tier lists, this system processes raw data in real-time, offering granular insights into **Item Optimization**, **Unit Pairing Efficiency**, and **Star-Level Scaling**.
 
-Lambda Architecture: "Bridge" service implementing batch layer persistence (Kafka → HDFS).
+###  Key Features
+* **Anti-Rate-Limit Ingestion:** Token-bucket rotation algorithm handling 100+ req/s.
+* **Lambda Architecture Bridge:** Custom batch-layer buffering to mitigate HDFS small-file problems.
+* **Distributed Aggregation:** PySpark engine tuned for skewed data distributions (8-way explode).
+* **Decision Support System (DSS):** Interactive Flask dashboard with fuzzy-asset mapping.
 
-Distributed Computing: PySpark algorithms to calculate placement deltas ($\Delta$) and unit synergies.
+---
 
-Interactive Dashboard: Flask-based UI with fuzzy-search asset mapping for visualizing Meta/Apex compositions.
+##  System Architecture
 
-Architecture
+The project is built on a vertical microservices topology orchestrated via Docker Compose.
 
-The system follows a vertical microservices topology containerized via Docker:
-
+```mermaid
 graph TD
-    A[Riot Games API] -->|JSON Stream| B(Ingestion Service)
+    subgraph "External Source"
+    A[Riot Games API]
+    end
+
+    subgraph "Docker Network"
+    A -->|JSON Stream| B(Ingestion Service)
     B -->|Producer| C{Apache Kafka}
-    C -->|Consumer| D[Bridge Service]
-    D -->|Batch Write| E[(HDFS DataLake)]
+    C -->|Topic: match-stream| D[Bridge Service]
+    D -->|Batch Write N=100| E[(HDFS DataLake)]
     E -->|Read| F[Apache Spark Engine]
     F -->|Aggregated Stats| G[(MongoDB)]
     G -->|Query| H[Flask Web App]
+    end
+```
 
+> **[Read the Full Architecture Documentation](docs/ARCHITECTURE.md)** for detailed specs on partitions, memory tuning, and data models.
 
-Project Structure
+---
 
+##  Project Structure
+
+```text
 tft-analytics/
-├── docker-compose.yml          # Main orchestration file
-├── .env                        # Configuration & API Keys
-├── ingestion/                  # Service: Riot API -> Kafka
-├── bridge/                     # Service: Kafka -> HDFS (Batch Layer)
-├── processing/                 # Service: Spark ETL & Aggregation
-└── web_app/                    # Service: Flask Decision Support System
+├── docker-compose.yml          # Root orchestrator for all 6 services
+├── .env                        # API Keys and Cluster Configs
+├── docs/                       # Documentation
+│   ├── ARCHITECTURE.md         # Technical Deep Dive
+│   └── SETUP.md                # Installation Guide
+├── ingestion/                  # [Layer 1] Riot API -> Kafka Producer
+├── bridge/                     # [Layer 2] Kafka -> HDFS Batcher
+├── processing/                 # [Layer 3] Spark ETL & Math Logic
+└── web_app/                    # [Layer 4] Flask Decision Support System
+```
 
+---
 
- Getting Started
+##  Quick Start
 
-Prerequisites
+For detailed instructions, see the **[Setup Guide](docs/SETUP.md)**.
 
-Docker Desktop (Allocated memory > 6GB recommended)
+1.  **Clone the Repo**
+    ```bash
+    git clone [https://github.com/yourusername/tft-analytics.git](https://github.com/yourusername/tft-analytics.git)
+    cd tft-analytics
+    ```
 
-Riot Games Developer Key (Get one at developer.riotgames.com)
+2.  **Add API Key**
+    Create a `.env` file:
+    ```bash
+    RIOT_API_KEY=RGAPI-xxxxxxxx-your-key-here
+    ```
 
-Installation
+3.  **Launch Cluster**
+    ```bash
+    docker-compose up -d --build
+    ```
 
-Clone the repository
+4.  **Access Services**
+    * **Dashboard:** [http://localhost:5000](http://localhost:5000)
+    * **HDFS UI:** [http://localhost:9870](http://localhost:9870)
+    * **Spark Master:** [http://localhost:8080](http://localhost:8080)
 
-git clone [https://github.com/yourusername/tft-analytics.git](https://github.com/yourusername/tft-analytics.git)
-cd tft-analytics
+---
 
+##  Tech Stack
 
-Configure Environment
-Create a .env file in the root directory:
+| Component | Technology | Role |
+| :--- | :--- | :--- |
+| **Ingestion** | Python 3.9, Requests | High-latency API polling & Key Rotation |
+| **Streaming** | Apache Kafka 7.0 | Asynchronous message buffering |
+| **Storage** | Hadoop HDFS 3.2 | Raw immutable data lake (JSON) |
+| **Compute** | Apache Spark 3.3 | Distributed aggregation & Shuffle |
+| **Database** | MongoDB 5.0 | Document store for hierarchical Meta archetypes |
+| **Frontend** | Flask, Jinja2 | User Interface & fuzzy asset search |
 
-RIOT_API_KEY=RGAPI-xxxxxxxx-your-api-key
+##  License
 
+Distributed under the MIT License. See `LICENSE` for more information.
 
-Launch the Cluster
-
-docker-compose up -d --build
-
-
-Wait ~30 seconds for Kafka and Hadoop to stabilize.
-
-Verify Services
-
-Hadoop NameNode: http://localhost:9870
-
-Spark Master: http://localhost:8080
-
-Web Dashboard: http://localhost:5000
-
-Running the Pipeline
-
-Step 1: Start Ingestion
-
-The ingestion service will automatically start polling match data if the API key is valid. Check logs:
-
-docker logs -f tft-analytics_ingestion_1
-
-
-Step 2: Bridge Data to HDFS
-
-The bridge service listens to Kafka and writes batches (N=100) to HDFS to prevent small-file overhead.
-
-docker logs -f tft-analytics_bridge_1
-
-
-Step 3: Run Spark Analysis
-
-Trigger the analytics engine to process HDFS data and populate MongoDB.
-
-docker exec -it tft-analytics_spark-master_1 spark-submit \
-  --master spark://spark-master:7077 \
-  --packages org.mongodb.spark:mongo-spark-connector_2.12:3.0.1 \
-  /processing/spark_processor.py
-
-
-Step 4: Explore Data
-
-Visit http://localhost:5000 to view the dashboard.
-
-Meta Comps: Stabilized strategies ($n > 1000$ games).
-
-Explorer: Deep dive into Unit/Item/Trait synergies with placement deltas.
-
-Tech Stack
-
-Ingestion: Python, Requests, Token Bucket Algorithm
-
-Streaming: Apache Kafka, Zookeeper
-
-Storage: Hadoop HDFS (Raw), MongoDB (Processed)
-
-Processing: Apache Spark 3.3.2 (PySpark)
-
-Frontend: Flask, Jinja2, HTML5/CSS3
-
-License
-
-Distributed under the MIT License. See LICENSE for more information.
-
-Disclaimer: This project is not endorsed by Riot Games and does not reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties
+---
+*Disclaimer: This project is not endorsed by Riot Games and does not reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties.*
