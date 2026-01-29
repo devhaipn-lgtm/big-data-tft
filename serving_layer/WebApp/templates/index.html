@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="content-area">
+    <h2 style="margin-top:0">{{ page_title }}</h2>
+    
+    <div style="display: grid; gap: 15px;">
+        {% for comp in comps %}
+        <div class="panel" style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <div style="font-weight:bold; font-size:1.1rem;">{{ comp.comp_name }}</div>
+                <div class="comp-units">
+                    {% for unit_id in comp.sample_units %}
+                    <div class="icon-box" title="{{ clean_id(unit_id) }}">
+                        <img src="{{ get_icon(unit_id) }}" onerror="this.style.display='none'">
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <div style="text-align: right;">
+                <div style="font-size: 1.5rem; font-weight:bold; color: {{ '#48bb78' if comp.avg_place < 4.0 else '#f56565' }}">
+                    #{{ "%.2f"|format(comp.avg_place) }}
+                </div>
+                <div style="color: var(--text-dim); font-size: 0.9rem;">
+                    {{ comp.play_count }} Games
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

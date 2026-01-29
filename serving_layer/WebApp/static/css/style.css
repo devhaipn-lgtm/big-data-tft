@@ -1,0 +1,130 @@
+:root {
+    --bg-dark: #111316;
+    --bg-panel: #1a1d23;
+    --border: #2a2e35;
+    --accent: #c8aa6e; /* LoL Gold */
+    --text-main: #f0f0f0;
+    --text-dim: #a0a0a0;
+    --green: #48bb78;
+    --red: #f56565;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* --- Clean Navbar --- */
+.navbar {
+    background: #0a0b0d;
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.logo { font-weight: 800; color: var(--accent); font-size: 1.2rem; margin-right: 20px; }
+
+.nav-link {
+    text-decoration: none;
+    color: var(--text-dim);
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 18px 0;
+    border-bottom: 3px solid transparent;
+    transition: 0.2s;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: white;
+    border-bottom-color: var(--accent);
+}
+
+/* --- Sidebar Layout --- */
+.layout-container {
+    display: flex;
+    flex: 1;
+}
+
+.sidebar {
+    width: 280px;
+    background: var(--bg-panel);
+    border-right: 1px solid var(--border);
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.content-area {
+    flex: 1;
+    padding: 40px;
+    background: var(--bg-dark);
+}
+
+/* --- Components --- */
+select {
+    width: 100%;
+    padding: 12px;
+    background: #0f1114;
+    border: 1px solid var(--border);
+    color: white;
+    border-radius: 6px;
+    outline: none;
+}
+
+.btn-search {
+    width: 100%;
+    padding: 12px;
+    background: var(--accent);
+    color: black;
+    border: none;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+}
+
+.panel {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.panel-header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    color: var(--accent);
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+}
+
+/* --- Icons --- */
+.icon-box {
+    width: 48px;
+    height: 48px;
+    border-radius: 4px;
+    border: 2px solid #333;
+    overflow: hidden;
+    position: relative;
+    background: #000;
+}
+
+.icon-box img { width: 100%; height: 100%; object-fit: cover; }
+.unit-row { display: flex; align-items: center; gap: 15px; margin-bottom: 10px; }
+.comp-units { display: flex; gap: 5px; margin-top: 10px; }

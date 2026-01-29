@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TFT Analytics</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">TFT META</div>
+        <a href="/" class="nav-link {{ 'active' if request.path == '/' }}">Apex Comps</a>
+        <a href="/meta" class="nav-link {{ 'active' if request.path == '/meta' }}">Meta Comps</a>
+        <a href="/explorer" class="nav-link {{ 'active' if request.path == '/explorer' }}">Data Explorer</a>
+    </nav>
+    
+    {% block content %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="58"
+   height="58"
+   viewBox="0 0 58 58"
+   fill="none"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="Vanquisher_normal_1693031680-Vanquisher-gray.svg"
+   inkscape:version="1.3 (0e150ed6c4, 2023-07-21)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="4.0689655"
+     inkscape:cx="29"
+     inkscape:cy="28.877119"
+     inkscape:window-width="1366"
+     inkscape:window-height="705"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1" />
+  <path
+     d="m 55.907243,28.527426 h -9.011097 l -8.007497,8.15552 -2.369338,-4.228567 10.376835,-10.568705 V 3.7427359 c 0,-1.9306077 -2.566766,-2.5997254 -3.510141,-0.915963 L 30.908632,25.105103 c -0.839065,1.497168 -2.994615,1.497168 -3.833695,0 L 14.603022,2.8267729 C 13.659641,1.1430105 11.093009,1.8121282 11.093009,3.7427359 V 21.891121 l 10.376708,10.568708 -2.369342,4.228566 -8.012951,-8.155527 H 2.076319 c -1.89216809,0 -2.59419769,2.489976 -0.9762455,3.477186 L 15.837118,41.010248 11.986952,53.70699 c -0.488165,1.607059 1.217479,2.994603 2.692862,2.193808 l 10.58519,-5.851976 c 0.806249,-0.444309 1.305303,-1.294412 1.305303,-2.210286 v -0.04931 c 0,-0.641759 -0.241291,-1.26146 -0.680031,-1.727707 L 22.500775,42.43618 28.99997,30.825384 35.499278,42.43618 31.950736,46.050511 c -0.466251,0.471681 -0.724012,1.10799 -0.724012,1.771535 0,0.926912 0.504639,1.777002 1.321784,2.221322 l 10.771729,5.851977 c 1.475249,0.800806 3.175579,-0.586877 2.692863,-2.193809 L 42.162945,41.004773 56.899902,32.004597 c 1.617952,-0.98723 0.916002,-3.477199 -0.976194,-3.477199 z"
+     fill="#A0A0A0"
+     id="path1"
+     style="fill:#bd9e59;fill-opacity:1;stroke-width:1.36169" />
+</svg>
